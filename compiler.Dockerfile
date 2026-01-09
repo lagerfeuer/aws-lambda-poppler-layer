@@ -24,7 +24,7 @@ WORKDIR /tmp
 RUN set -xe \
     && yum makecache \
     && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default \
-    && yum install -y python3-devel openssl-devel gcc10 gcc10-c++
+    && yum install -y python3-devel openssl-devel gcc10 gcc10-c++ glib2-devel libffi-devel
 
 # Install CMake
 
@@ -47,7 +47,7 @@ RUN  set -xe \
 RUN  set -xe \
     && mkdir -p /tmp/gobject-introspection \
     && cd /tmp/gobject-introspection \
-    && curl -Ls  https://download.gnome.org/sources/gobject-introspection/1.76/gobject-introspection-1.76.1.tar.xz \
+    && curl -Ls  https://download.gnome.org/sources/gobject-introspection/1.72/gobject-introspection-1.72.1.tar.xz \
     | tar xJvC /tmp/gobject-introspection --strip-components=1 \
     && mkdir build \
     && cd build \
@@ -64,7 +64,7 @@ RUN  set -xe \
 RUN set -xe \
     && mkdir -p /tmp/boost \
     && cd /tmp/boost \
-    && curl -Ls https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.gz \
+    && curl -Ls https://archives.boost.io/release/1.82.0/source/boost_1_82_0.tar.gz \
     | tar xzC /tmp/boost --strip-components=1 \
     && sed -i '/#include.*phoenix.*tuple.hpp.*/d' boost/phoenix/stl.hpp \
     && ./bootstrap.sh \
